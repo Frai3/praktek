@@ -1,71 +1,37 @@
- <script>
-$('#update_form').on("submit", function(event){  
-  event.preventDefault();  
-  if($('#enama').val() == "")  
-  {  
-   alert("Mohon Isi Nama ");  
-  }  
-  else if($('#ealamat').val() == '')  
-  {  
-   alert("Mohon Isi Alamat");  
-  }  
- 
-  else  
-  {  
-   $.ajax({  
-    url:"update.php",  
-    method:"POST",  
-    data:$('#update_form').serialize(),  
-    beforeSend:function(){  
-     $('#update').val("Updating");  
-    },  
-    success:function(data){  
-     $('#update_form')[0].reset();  
-     $('#editModal').modal('hide');  
-     $('#employee_table').html(data);  
-    }  
-   });  
-  }  
- });
-</script>
 <?php 
-if(isset($_POST["employee_id"]))
+if(isset($_POST["namaBarang"]))
 {
- $output = '';
- $connect = mysqli_connect("localhost", "root", "", "input_karyawan");
- $query = "SELECT * FROM karyawan WHERE id = '".$_POST["employee_id"]."'";
- $result = mysqli_query($connect, $query);
-	$row = mysqli_fetch_array($result);
-     $output .= '
-         <form method="post" id="update_form">
-     <label>Nama Karyawan</label>
-     <input type="hidden" name="id" id="id" value="'.$_POST["employee_id"].'" class="form-control" />
-     <input type="text" name="nama" id="enama" value="'.$row['nama'].'" class="form-control" />
-     <br />
-     <label>Alamat Karyawan</label>
-     <textarea name="alamat" id="ealamat" class="form-control">'.$row['alamat'].'</textarea>
-     <br />
-     <label>Jenis Kelamin</label>
-     <select name="gender" id="gender" class="form-control">';
-	 if($row['gender']=="Laki-laki"){
-      $output .= '<option value="Laki-laki" selected>Laki-laki</option>  
-      <option value="Perempuan">Perempuan</option>';
-	 }elseif($row['gender']=="Perempuan"){
-		$output .= '<option value="Laki-laki">Laki-laki</option>  
-      <option value="Perempuan" selected>Perempuan</option>';
-	 }else{
-		$output .= '<option value="Laki-laki">Laki-laki</option>  
-      <option value="Perempuan">Perempuan</option>';
-	 }
-     $output .= '</select>
-     <br />  
-     <label>Umur</label>
-     <input type="text" name="umur" id="umur" value="'.$row['umur'].'" class="form-control" />
-     <br />
-     <input type="submit" name="update" id="update" value="Update" class="btn btn-success" />
+    include 'koneksi.php';
+    
+    $namaBarang = $_POST["namaBarang"];
 
+    $query = "SELECT * FROM barang WHERE namaBarang = '$namaBarang'";
+
+    $result = mysqli_query($connect, $query);
+	$row = mysqli_fetch_array($result);
+?>
+    <form method="post" action="update.php" enctype="multipart/form-data">
+        <label>Nama Karyawan</label>
+        <input type="text" name="namaBarang" id="namaBarang" value="<?php echo $row['namaBarang']; ?>" class="form-control" readonly/>
+        <br />
+        <label>Harga Beli</label>
+        <br />
+        <input type="number" name="hargaBeli" id="hargaBeli" value="<?php echo $row['hargaBeli']; ?>" class="form-control"/>
+        <br />
+        <label>Harga Jual</label>
+        <br />
+        <input type="number" name="hargaJual" id="hargaJual" value="<?php echo $row['hargaJual']; ?>" class="form-control"/>
+        <br />
+        <label>Stok</label>
+        <br />
+        <input type="number" name="stok" id="stok" value="<?php echo $row['stok']; ?>" class="form-control"/>
+        <br />
+        <label>Foto Barang</label>
+        <br />
+        <input type="file" class="form-control" id="dokumentasi1" name="dokumentasisatu" value="<?php echo $rot['fotoBarang']; ?>" />
+        <br />
+        <button type="submit" class="btn btn-secondary" style="width: 150px">Submit</button>
     </form>
-     ';
-    echo $output;
+<?php
 }
 ?>
