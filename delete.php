@@ -15,8 +15,8 @@ if(!$resultDelete){
     die ("Query gagal dijalankan: ".mysqli_errno($connect).
     " - ".mysqli_error($connect));
 }else{
-    // echo "<script>alert('Data ".$namaBarang." Telah Dihapus');
-	// window.location='./';
-	// </script>";
+    echo "<script>alert('Data ".$namaBarang." Telah Dihapus');
+	window.location='./';
+	</script>";
 }
 ?>
