@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 26, 2022 at 04:30 PM
+-- Generation Time: Oct 27, 2022 at 08:07 AM
 -- Server version: 10.4.22-MariaDB
 -- PHP Version: 7.4.27
 
@@ -40,12 +40,12 @@ CREATE TABLE `barang` (
 --
 
 INSERT INTO `barang` (`namaBarang`, `hargaBeli`, `hargaJual`, `stok`, `fotoBarang`) VALUES
-('Audi A8', 300000000, 350000000, 2, 'Audi A8.jpg'),
+('Audi A8', 300000000, 350000000, 25, 'Audi A8.jpg'),
 ('Honda Civic', 150000000, 200000000, 10, 'Honda Civic.png'),
 ('Honda Jazz', 200000000, 250000000, 10, 'Honda Jazz.jpg'),
 ('Honda Mobilio', 150000000, 200000000, 20, 'Honda Mobilio.jpg'),
-('Mitsubishi Xpander', 250000000, 300000000, 25, 'Xpander.jpg'),
-('Toyota Avanza', 120000000, 150000000, 10, 'Avanza.jpg'),
+('Mitsubishi Xpander', 350000000, 400000000, 10, 'Xpander.jpg'),
+('Toyota Avanza', 120000000, 150000000, 15, 'Avanza.jpg'),
 ('Toyota Corolla', 250000000, 150000000, 10, 'Toyota Corolla.png');
 
 --

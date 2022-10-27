@@ -11,7 +11,7 @@ if(isset($_POST["namaBarang"]))
 	$row = mysqli_fetch_array($result);
 ?>
     <form method="post" action="update.php" enctype="multipart/form-data">
-        <label>Nama Karyawan</label>
+        <label>Nama Barang</label>
         <input type="text" name="namaBarang" id="namaBarang" value="<?php echo $row['namaBarang']; ?>" class="form-control" readonly/>
         <br />
         <label>Harga Beli</label>

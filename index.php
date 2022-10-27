@@ -6,29 +6,29 @@ include 'koneksi.php';
  <head>  
   <title>Praktek PHP Programming || Nutech Integrasi</title>  
   <script src="jquery.min.js"></script>
-  <link rel="stylesheet" href="bootstrap.min.css" />  
-  <script src="bootstrap.min.js"></script>  
+  <link rel="stylesheet" href="bootstrap-4.3.1-dist/css/bootstrap.min.css" />
+  <script src="bootstrap-4.3.1-dist/js/bootstrap.min.js"></script>  
  </head>  
  <body>  
  
   <div class="container" style="width:700px;">
-    <div class="row">
-      <div class="table-responsive">
+  <h1 style="text-align: center">Data Gudang</h1>
+    <div class="row pt-3 pb-3">
         <div class="col">
           <button type="button" data-toggle="modal" data-target="#popupInsert" class="btn btn-warning ">Tambah Barang</button>
         </div>
-        <div class="col">
+        <div class="col-2">
         </div>
-        <div class="col">
+        <div class="col-7">
           <form action="index.php" method="get">
             <label>Nama Barang :</label>
             <input type="text" name="cari">
             <input type="submit" value="Cari">
           </form>
       </div>
-    </div>
+  </div>
     <br />
-    <table class="table table-bordered">
+    <table class="table">
 			<thead class="thead-dark">
 				<tr>
 					<th>No</th>
@@ -48,20 +48,29 @@ include 'koneksi.php';
             $querySelect = "SELECT * FROM barang WHERE namaBarang='$cari'";
             $result = mysqli_query($connect, $querySelect);
             $row = mysqli_fetch_array($result);
+            $no = 1;
+            if($row > 1){
             ?>
             <tr>
+              <td><?php echo $no; ?></td>
               <td><?php echo $row['namaBarang']; ?></td>
               <td><?php echo $row['hargaBeli']; ?></td>
               <td><?php echo $row['hargaJual']; ?></td>
               <td><?php echo $row['stok']; ?></td>
               <td><img class="card-img-top" src="gambar/<?php echo $row["fotoBarang"]; ?>" alt="Image Not Found" width="150"></td>
               <td>
-                <input type="button" name="edit" value="Edit" id="<?php echo $row["namaBarang"]; ?>" class="btn btn-warning btn-xs formEdit" />
-                ||
-                <a href="delete.php?namaBarang=<?php echo $row['namaBarang'] ?>" type="button" class="btn btn-danger btn-xs" onclick="return confirm('Hapus Data <?php echo $row['namaBarang']; ?>?')">Hapus</a>
+              <input type="button" name="edit" value="Edit" id="<?php echo $row["namaBarang"]; ?>" class="btn btn-warning btn-sm formEdit" />
+              
+              <a href="delete.php?namaBarang=<?php echo $row['namaBarang'] ?>" type="button" class="btn btn-danger btn-sm" onclick="return confirm('Hapus Data <?php echo $row['namaBarang']; ?>?')">Hapus</a>
               </td>
             </tr>
             <?php
+            }else{
+              echo "<script>alert('Data ".$cari." Tidak Ditemukan');
+              window.location='./';
+              </script>";
+            }
+            $no++;
           }else{
             read();
           }
@@ -113,8 +122,8 @@ include 'koneksi.php';
  <div class="modal-dialog">
   <div class="modal-content">
    <div class="modal-header">
-    <button type="button" class="close" data-dismiss="modal">&times;</button>
     <h4 class="modal-title">Edit Data Barang</h4>
+    <button type="button" class="close" data-dismiss="modal">&times;</button>
    </div>
    <div class="modal-body" id="edit">
    </div>
@@ -176,9 +185,9 @@ function read(){
       <td><?php echo $row['stok']; ?></td>
       <td><img class="card-img-top" src="gambar/<?php echo $row["fotoBarang"]; ?>" alt="Card image cap" width="150"></td>
       <td>
-        <input type="button" name="edit" value="Edit" id="<?php echo $row["namaBarang"]; ?>" class="btn btn-warning btn-xs formEdit" />
-        ||
-        <a href="delete.php?namaBarang=<?php echo $row['namaBarang'] ?>" type="button" class="btn btn-danger btn-xs" onclick="return confirm('Hapus Data <?php echo $row['namaBarang']; ?>?')">Hapus</a>
+        <input type="button" name="edit" value="Edit" id="<?php echo $row["namaBarang"]; ?>" class="btn btn-warning btn-sm formEdit" />
+        <br />
+        <a href="delete.php?namaBarang=<?php echo $row['namaBarang'] ?>" type="button" class="btn btn-danger btn-sm" onclick="return confirm('Hapus Data <?php echo $row['namaBarang']; ?>?')">Hapus</a>
       </td>
     </tr>
     <?php
@@ -186,7 +195,7 @@ function read(){
   ?>
 </tbody>
 </table>
-<nav>
+<nav aria-label="Page navigation example">
 <ul class="pagination justify-content-center">
   <li class="page-item">
     <a class="page-link" <?php if($page > 1){ echo "href='?page=$previous'"; } ?>>Previous</a>
